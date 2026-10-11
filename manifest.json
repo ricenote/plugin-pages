@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "rice.pages",
+  "name": "页面",
+  "description": "独立页面：创建「关于我们」「联系方式」等固定内容页，支持自定义地址、状态、排序与页面模板选择。页面可作为导航项来源被 rice.navigation 引用。",
+  "version": "1.2.0",
+  "apiVersion": "^1.0.0",
+  "author": "RiceNote",
+  "license": "MIT",
+  "entry": "./dist/index.js",
+  "provides": ["content.pages@1"],
+  "capabilities": [
+    "database:own",
+    "services:provide",
+    "services:consume",
+    "routes:public",
+    "routes:admin",
+    "events:publish",
+    "events:subscribe",
+    "slots:register"
+  ],
+  "migrations": "./migrations",
+  "admin": {
+    "pages": [
+      {
+        "id": "pages.list",
+        "label": "页面",
+        "path": "/pages",
+        "icon": "FileStack",
+        "order": 15,
+        "permission": "page.view",
+        "entry": "./admin/main.js"
+      }
+    ]
+  },
+  "settingsSchema": {
+    "general": {
+      "label": { "zh-CN": "通用", "en": "General" },
+      "description": {
+        "zh-CN": "影响页面在前后台的行为。修改后需重启服务生效。",
+        "en": "Affects page behavior. A restart is required after changes."
+      },
+      "fields": {
+        "listPageSize": {
+          "type": "number",
+          "label": { "zh-CN": "页面列表每页条数", "en": "Pages per list page" },
+          "default": 20,
+          "min": 1,
+          "max": 100
+        },
+        "cacheEnabled": {
+          "type": "boolean",
+          "label": { "zh-CN": "启用页面 HTML 缓存", "en": "Enable page HTML cache" },
+          "description": {
+            "zh-CN": "关闭后每次访问都重新渲染，便于调试主题",
+            "en": "Disable to re-render on every request (useful when debugging a theme)"
+          },
+          "default": true
+        }
+      }
+    }
+  }
+}
